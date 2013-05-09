@@ -32,6 +32,8 @@ let g:loaded_fixgaepath = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+let s:plugin_path = expand('<sfile>:p:h')
+
 if !hasmapto('<Plug>FixgaepathFixpath')
   map <unique> <Leader>g <Plug>FixgaepathFixpath
 endif
@@ -45,16 +47,9 @@ function! s:fix_path()
     return
   endif
 
-  python << EOF
-import sys, os, vim
+  exe 'pyfile ' . s:plugin_path . '/fixgaepath.py'
+  python fixGaePath(vim.eval('g:fixgaepath_sdk_path'))
 
-sdk_path = vim.eval('g:fixgaepath_sdk_path')
-
-sys.path.insert(0, sdk_path)
-import dev_appserver
-dev_appserver.fix_sys_path()
-sys.path.insert(0, os.getcwd())
-EOF
   echomsg 'Added a search path to the SDK for GAE into the internal python.'
 endfunction
 
