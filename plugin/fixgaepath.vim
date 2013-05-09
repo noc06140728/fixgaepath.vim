@@ -39,7 +39,7 @@ noremap <unique> <script> <Plug>FixgaepathFixpath :call <SID>fix_path()<CR>
 
 function! s:fix_path() 
 python << EOF
-import sys, os
+import sys, os, vim
 
 sdk_path = os.environ.get('GAE_SDK_PATH')
 
@@ -48,10 +48,18 @@ if sdk_path:
     import dev_appserver
     dev_appserver.fix_sys_path()
     sys.path.insert(0, os.getcwd())
+    vim.command('let result = 0')
+else:
+    vim.command('let result = -1')
 EOF
+    if result == 0
+        echomsg 'Added GAE_SDK_PATH to search path of internal python.'
+    else
+        echohl WarningMsg | echomsg 'Please set the environment variable GAE_SDK_PATH.' | echohl None
+    endif
 endfunction
 
-if !exists(":FixGaePath")
+if !exists(':FixGaePath')
   command FixGaePath :call s:fix_path()
 endif
 
