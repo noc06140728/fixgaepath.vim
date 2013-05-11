@@ -49,7 +49,13 @@ function! s:fix_path()
 
   exe 'pyfile ' . s:plugin_path . '/fixgaepath.py'
   python import vim
-  python fix_gae_path(vim.eval('g:fixgaepath_sdk_path'))
+
+  if !exists('s:fixed_gae_sdk_path')
+    python fix_gae_sdk_path(vim.eval('g:fixgaepath_sdk_path'))
+    let s:fixed_gae_sdk_path = 1
+  endif
+
+  python fix_gae_project_path(vim.eval('expand("%:p:h")'))
 
   echomsg 'Added a search path to the SDK for GAE into the internal python.'
 endfunction
