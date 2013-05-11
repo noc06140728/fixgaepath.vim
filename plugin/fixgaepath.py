@@ -24,9 +24,9 @@
 # }}}
 #=============================================================================
 
-import sys, os, vim
+import sys, os
 
-def fixGaePath(sdk_path):
+def fix_gae_path(sdk_path):
     sys.path.insert(0, sdk_path)
     import dev_appserver
     dev_appserver.fix_sys_path()
