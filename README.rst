@@ -1,6 +1,6 @@
-====================================================
-fixgaepath.vim - Google Appengine への path を解決！
-====================================================
+==============
+fixgaepath.vim
+==============
 
 Vim で Google Appengine の開発を快適に行えるようにするために、
 jedi-vim (http://github.com/davidhalter/jedi-vim) による補完機能や
