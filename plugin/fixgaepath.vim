@@ -34,11 +34,6 @@ set cpo&vim
 
 let s:plugin_path = expand('<sfile>:p:h')
 
-if !hasmapto('<Plug>FixgaepathFixpath')
-  map <unique> <Leader>g <Plug>FixgaepathFixpath
-endif
-noremap <unique> <script> <Plug>FixgaepathFixpath :call <SID>fix_path()<CR>
-
 function! s:fix_path() 
   if !exists('g:fixgaepath_sdk_path')
     echohl WarningMsg
